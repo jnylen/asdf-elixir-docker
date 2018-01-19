@@ -5,7 +5,7 @@ ENV ELIXIR_VERSION "1.6.0"
 ENV NODEJS_VERSION "8.9.3"
 ENV PHX_VERSION "1.3.0"
 
-RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates nodejs postgresql-client
+RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates nodejs postgresql-client
 
 RUN apk add --virtual .asdf-deps --no-cache bash curl git
 SHELL ["/bin/bash", "-l", "-c"]
