@@ -2,7 +2,6 @@ FROM vborja/asdf-alpine:latest
 
 ENV ERLANG_VERSION "20.2"
 ENV ELIXIR_VERSION "1.6.0"
-ENV NODEJS_VERSION "8.9.3"
 ENV PHX_VERSION "1.3.0"
 
 USER root
