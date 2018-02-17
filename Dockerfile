@@ -3,9 +3,12 @@ FROM vborja/asdf-alpine:latest
 ENV ERLANG_VERSION "20.2"
 ENV ELIXIR_VERSION "1.6.0"
 ENV PHX_VERSION "1.3.0"
+ENV TIMEZONE "Europe/Brussels"
 
 USER root
-RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates nodejs postgresql-client
+RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates nodejs postgresql-client tzdata
+RUN cp /usr/share/zoneinfo/$TIMEZONE /etc/localtime && \
+    echo "$TIMEZONE" >  /etc/timezone
 
 USER asdf
 RUN asdf update --head
