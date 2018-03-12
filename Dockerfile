@@ -1,8 +1,8 @@
 FROM vborja/asdf-alpine:latest
 
-ENV ERLANG_VERSION "20.2"
-ENV ELIXIR_VERSION "1.6.0"
-ENV PHX_VERSION "1.3.0"
+ENV ERLANG_VERSION "20.2.4"
+ENV ELIXIR_VERSION "1.6.4"
+ENV PHX_VERSION "1.3.2"
 
 USER root
 RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates nodejs postgresql-client
