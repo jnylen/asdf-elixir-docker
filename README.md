@@ -4,9 +4,9 @@ Docker container based on Alpine linux distribution.
 
 It has:
 
-1. Erlang last releases for each major version: `18.*`, `19.*`, `20.*`
-1. Elixir last releases for each major version: `1.2.*`, `1.3.*`, `1.4.*`, `1.5.*`, `1.6.*`
-1. NodeJS last releases for each LTS version: `4.*`, `6.*`, `8.*`
+1. Erlang last releases for each major version: `20.*`
+1. Elixir last releases for each major version: `1.6.*`
+1. NodeJS last releases for each LTS version: `8.*`
 
 Additional features:
 
