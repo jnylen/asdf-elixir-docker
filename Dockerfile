@@ -1,11 +1,12 @@
 FROM vborja/asdf-alpine:latest
 
-# Adding additional packages
-
-ENV TIMEZONE "Europe/Brussels"
+ENV ERLANG_VERSION "20.2.4"
+ENV ELIXIR_VERSION "1.6.3"
+ENV PHX_VERSION "1.3.2"
+ENV TIMEZONE "Europe/Moscow"
 
 USER root
-RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates nodejs postgresql-client tzdata
+RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates postgresql-client tzdata
 RUN cp /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 USER asdf
@@ -14,49 +15,16 @@ RUN asdf update --head
 # Adding Erlang, Elixir and NodeJS plugins
 RUN asdf plugin-add erlang && \
     asdf plugin-add nodejs && \
-    asdf plugin-add elixir
-
-# Adding Erlang/OTP 18.3.4
-RUN asdf install erlang 18.3.4
-
-# Adding Elixir 1.2 with corresponding Erlang
-RUN asdf install elixir 1.2.6 && \
-    asdf global erlang 18.3.4 && \
-    asdf global elixir 1.2.6 && \
-    yes | mix local.hex --force && \
-    yes | mix local.rebar --force
-
-# Adding Erlang/OTP 19.3.6
-RUN asdf install erlang 19.3.6
-
-# Adding Elixir 1.3 with corresponding Erlang
-RUN asdf install elixir 1.3.4 && \
-    asdf global erlang 19.3.6 && \
-    asdf global elixir 1.3.4 && \
-    yes | mix local.hex --force && \
-    yes | mix local.rebar --force
-
-# Adding Elixir 1.4 with corresponding Erlang
-RUN asdf install elixir 1.4.5 && \
-    asdf global erlang 19.3.6 && \
-    asdf global elixir 1.4.5 && \
-    yes | mix local.hex --force && \
-    yes | mix local.rebar --force
-
-# Adding Elixir 1.5 with corresponding Erlang
-RUN asdf install elixir 1.5.3 && \
-    asdf global erlang 19.3.6 && \
-    asdf global elixir 1.5.3 && \
-    yes | mix local.hex --force && \
-    yes | mix local.rebar --force
-
-# Adding Erlang/OTP 20.2.4
-RUN asdf install erlang 20.2.4
-
+    asdf plugin-add elixir && \
+    asdf plugin-add nodejs && \
+    
 # Adding Erlang installation and dependencies requirements
 USER root
 RUN apk add openssh-client gawk grep yaml-dev expat-dev libxml2-dev
 USER asdf
+
+# Adding Erlang/OTP 20.2.4
+RUN asdf install erlang 20.2.4
 
 # Adding Elixir 1.6 with corresponding Erlang
 RUN asdf install elixir 1.6.3 && \
@@ -77,12 +45,6 @@ RUN gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys 94AE36675C464D64BAF
     gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys B9AE9905FFD7803F25714661B63B535A4C206CA9 && \
     gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys 56730D5401028683275BD23C23EFEFE93C4CFFFE && \
     gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys 77984A986EBC2AA786BC0F66B01FBB92821C587A
-
-# Adding NodeJS 4.8.7 LTS
-RUN asdf install nodejs 4.8.7
-
-# Adding NodeJS 6.13.1 LTS
-RUN asdf install nodejs 6.13.1
 
 # Adding NodeJS 8.10.0 LTS
 RUN asdf install nodejs 8.10.0
