@@ -1,8 +1,8 @@
 FROM vborja/asdf-alpine:latest
 
-ENV ERLANG_VERSION "20.2.4"
-ENV ELIXIR_VERSION "1.6.3"
-ENV PHX_VERSION "1.3.2"
+ENV ERLANG_VERSION "21.0.9"
+ENV ELIXIR_VERSION "1.7.4"
+ENV NODE_JS_VERSION="8.10.0"
 ENV TIMEZONE "Europe/Moscow"
 
 USER root
@@ -14,22 +14,21 @@ RUN asdf update --head
 
 # Adding Erlang, Elixir and NodeJS plugins
 RUN asdf plugin-add erlang && \
-    asdf plugin-add nodejs && \
     asdf plugin-add elixir && \
-    asdf plugin-add nodejs && \
+    asdf plugin-add nodejs
     
 # Adding Erlang installation and dependencies requirements
 USER root
 RUN apk add openssh-client gawk grep yaml-dev expat-dev libxml2-dev
 USER asdf
 
-# Adding Erlang/OTP 20.2.4
-RUN asdf install erlang 20.2.4
+# Adding Erlang/OTP
+RUN asdf install erlang $ERLANG_VERSION
 
-# Adding Elixir 1.6 with corresponding Erlang
-RUN asdf install elixir 1.6.3 && \
-    asdf global erlang 20.2.4 && \
-    asdf global elixir 1.6.3 && \
+# Adding Elixir with corresponding Erlang
+RUN asdf install elixir $ELIXIR_VERSION && \
+    asdf global erlang $ERLANG_VERSION && \
+    asdf global elixir $ELIXIR_VERSION && \
     yes | mix local.hex --force && \
     yes | mix local.rebar --force
 
@@ -46,12 +45,12 @@ RUN gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys 94AE36675C464D64BAF
     gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys 56730D5401028683275BD23C23EFEFE93C4CFFFE && \
     gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys 77984A986EBC2AA786BC0F66B01FBB92821C587A
 
-# Adding NodeJS 8.10.0 LTS
-RUN asdf install nodejs 8.10.0
+# Adding NodeJS LTS
+RUN asdf install nodejs $NODE_JS_VERSION
 
 # Setting global versions
-RUN asdf global erlang 20.2.4 && \
-    asdf global elixir 1.6.3  && \
-    asdf global nodejs 8.10.0
+RUN asdf global erlang $ERLANG_VERSION && \
+    asdf global elixir $ELIXIR_VERSION  && \
+    asdf global nodejs $NODE_JS_VERSION
 
 CMD ["/bin/bash"]
