@@ -6,7 +6,7 @@ ENV NODE_JS_VERSION="8.10.0"
 ENV TIMEZONE "Europe/Moscow"
 
 USER root
-RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates postgresql-client tzdata
+RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates postgresql-client tzdata rsync
 RUN cp /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 USER asdf
