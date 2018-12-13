@@ -6,7 +6,11 @@ ENV NODE_JS_VERSION="8.10.0"
 ENV TIMEZONE "Europe/Moscow"
 
 USER root
+<<<<<<< HEAD
 RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates postgresql-client tzdata coreutils
+=======
+RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates postgresql-client tzdata rsync
+>>>>>>> 5205d7c1097fd49a35ec2c374e387dcf690603ca
 RUN cp /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 USER asdf
@@ -16,7 +20,11 @@ RUN asdf update --head
 RUN asdf plugin-add erlang && \
     asdf plugin-add elixir && \
     asdf plugin-add nodejs
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 5205d7c1097fd49a35ec2c374e387dcf690603ca
 # Adding Erlang installation and dependencies requirements
 USER root
 RUN apk add openssh-client gawk grep yaml-dev expat-dev libxml2-dev
@@ -55,5 +63,8 @@ RUN asdf global erlang $ERLANG_VERSION && \
     asdf global elixir $ELIXIR_VERSION  && \
     asdf global nodejs $NODE_JS_VERSION
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> 5205d7c1097fd49a35ec2c374e387dcf690603ca
 CMD ["/bin/bash"]
