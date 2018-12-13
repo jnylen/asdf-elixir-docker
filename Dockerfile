@@ -6,7 +6,7 @@ ENV PHX_VERSION "1.3.2"
 ENV TIMEZONE "Europe/Moscow"
 
 USER root
-RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates postgresql-client tzdata
+RUN apk add --update --no-cache autoconf automake bash curl alpine-sdk perl imagemagick openssl openssl-dev ncurses ncurses-dev unixodbc unixodbc-dev git ca-certificates postgresql-client tzdata coreutils
 RUN cp /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 USER asdf
@@ -14,10 +14,9 @@ RUN asdf update --head
 
 # Adding Erlang, Elixir and NodeJS plugins
 RUN asdf plugin-add erlang && \
-    asdf plugin-add nodejs && \
     asdf plugin-add elixir && \
-    asdf plugin-add nodejs && \
-    
+    asdf plugin-add nodejs
+
 # Adding Erlang installation and dependencies requirements
 USER root
 RUN apk add openssh-client gawk grep yaml-dev expat-dev libxml2-dev
@@ -33,9 +32,11 @@ RUN asdf install elixir 1.6.3 && \
     yes | mix local.hex --force && \
     yes | mix local.rebar --force
 
+
 # NodeJS requirements
 USER root
 RUN apk add curl make gcc g++ python linux-headers binutils-gold gnupg perl-utils libstdc++
+RUN apk add --update rsync    
 USER asdf
 RUN gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys 94AE36675C464D64BAFA68DD7434390BDBE9B9C5 && \
     gpg --keyserver ipv4.pool.sks-keyservers.net --recv-keys FD3A5288F042B6850C66B31F09FE44734EB7990E && \
@@ -54,4 +55,5 @@ RUN asdf global erlang 20.2.4 && \
     asdf global elixir 1.6.3  && \
     asdf global nodejs 8.10.0
 
+    
 CMD ["/bin/bash"]
