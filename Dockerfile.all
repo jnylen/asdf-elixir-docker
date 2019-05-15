@@ -1,0 +1,32 @@
+FROM jnylen/asdf-elixir:base
+
+# Versions
+ENV ERLANG_VERSION "22.0"
+ENV ELIXIR_VERSION "1.8.1"
+ENV NODE_JS_VERSION "10.15.3"
+ENV KERL_BUILD_BACKEND "tarball"
+ENV KERL_CONFIGURE_OPTIONS "--without-javac" 
+
+
+# Adding Erlang/OTP
+RUN asdf install erlang $ERLANG_VERSION
+
+# Adding Elixir with corresponding Erlang
+RUN asdf install elixir $ELIXIR_VERSION
+
+# Setting global versions
+RUN asdf global erlang $ERLANG_VERSION && \
+    asdf global elixir $ELIXIR_VERSION
+
+# Install hex and rebar
+RUN yes | mix local.hex --force && \
+    yes | mix local.rebar --force
+
+# Adding NodeJS LTS
+RUN asdf install nodejs $NODE_JS_VERSION
+
+# Setting global versions
+RUN asdf global nodejs $NODE_JS_VERSION
+
+
+CMD ["/bin/sh"]
